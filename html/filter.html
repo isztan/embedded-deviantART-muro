@@ -1,0 +1,99 @@
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Embedded deviantART muro, raw HTML reference implementation</title>
+<style>
+body { margin: 0; font-size: 14px; background-position: top center; background-size: contain; background-repeat: no-repeat; }
+h1, h2, h3, h4, h5, h6 { margin-bottom: 4px; }
+p { margin: 4px 0; }
+.muro-container, .muro, .muro-loading-inner { width: 1024px; height: 600px; border: 0; }
+.muro-container { overflow: auto; }
+.muro-loading { position: absolute; }
+.muro-loading-inner { display: table-cell; vertical-align: middle; text-align: center; }
+.muro { position: absolute; visibility: hidden; }
+.done { color: #cec; background-color: rgba(40, 40, 40, 0.8); }
+</style>
+</head>
+<body>
+<h1>Embedded deviantART muro, raw HTML reference implementation</h1>
+<p>This reference implementation of embedded deviantART muro provides just the raw HTML and Javascript without making any assumptions about what toolkit or libraries you're using. This version demonstrates how to apply a series of filters to the image after import.</p>
+<div class="muro-container">
+<div class="muro-loading"><div class="muro-loading-inner">Loading deviantART muro...</div></div>
+<iframe class="muro" src="deviantart_muro_sandbox.html?backgroundURL=..%2Fimages%2Fcrane_squared_by_mudimba_and_draweverywhere.png"></iframe>
+</div>
+</body>
+</html>
+<script>
+(function (window, undefined) {
+"use strict";
+
+var muroContainer = document.getElementsByClassName("muro-container")[0],
+    muroIframe    = muroContainer.getElementsByClassName("muro")[0],
+    loadingDiv    = muroContainer.getElementsByClassName("muro-loading")[0];
+
+function receiveMessage(message) {
+    /* Whenever you're using postMessage, you should always validate
+     * the source and/or origin of the message to ensure that you're
+     * not being given spoofed messages by someone iframing you.
+     *
+     * Since this reference script doesn't know where you'll be
+     * hosting the sandbox iframe, we can't check the origin, but
+     * we can check that the message comes from the iframe we
+     * opened it in.
+     */
+    if (message.source !== muroIframe.contentWindow) {
+        return; // Not from our iframe, ignore it.
+    }
+
+    /**
+     * Muro can pass a number of message types, see the documentation
+     * for details, in this example we only care about the 'ready' and
+     * 'done' messages.
+     */
+    if (message.data.type === 'ready') {
+        /* A ready event indicates that muro has finished setting loading
+         * and importing any background image you requested.
+         * On a side note, if you're hiding the muro embed, always use
+         * visibility: hidden rather than display: none, otherwise muro
+         * won't be able to figure out its layout correctly.
+         */
+        muroIframe.style.visibility = 'visible';
+        loadingDiv.style.visibility = 'hidden';
+        /* Fire off a bunch of filter commands. These will be queued and
+         * applied one after the other.
+         */
+        muroMessage({type: 'command', command: 'filter', filter: 'Sobel', layer: 'Background'});
+        muroMessage({type: 'command', command: 'filter', filter: 'DarkSharpen', layer: 'Background'});
+        muroMessage({type: 'command', command: 'filter', filter: 'DarkSharpen', layer: 'Background'});
+        muroMessage({type: 'command', command: 'filter', filter: 'InvertColors', layer: 'Background'});
+    } else if (message.data.type === 'done' || (message.data.type === 'queryReply' && message.data.query === 'image')) {
+        /* A done event indicates the user has pressed the "done" button,
+         * within the payload is a base64-encoded data: url of the image
+         * under 'image'.
+         */
+        var image = message.data.image;
+
+        /* Once you've got the image data, you could save it to your server
+         * by passing it in an AJAX call, or do something stupid like this:
+         */
+        if (!/'/.test(image)) {
+            var body = document.getElementsByTagName("body")[0];
+            body.style.backgroundImage = "url('" + image + "')";
+        }
+        if (message.data.type === 'done') {
+	    muroContainer.innerHTML = "<div class=\"done\"><h1>Yay, your picture is complete</h1>" +
+		"<p>Your picture is complete, the embedding site got the base64 image.<br>" +
+		"Because this is an example implementation, it can't assume there's a script ready " +
+		"to process the data on the host. So pretend that this base64 dump of the raw " +
+		"image data was saved somewhere:</p><code>" +
+		image.match(/.{1,100}/g).join("<br>") +
+		"</code></div>";
+        }
+    }
+}
+window.addEventListener("message", receiveMessage, false);
+
+window.muroMessage = function (message) { muroIframe.contentWindow.postMessage(message, '*'); }
+
+})(window);
+</script>

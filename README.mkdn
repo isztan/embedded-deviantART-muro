@@ -1,0 +1,26 @@
+Embedded deviantART muro
+========================
+
+The purpose of this distribution is to provide examples and documentation of how to embed the deviantART muro HTML5 drawing application (http://sta.sh/muro) on your website.
+
+Embedding deviantART muro in your site allows you to pass images from your site to deviantART muro, allow your users to edit those images, and then hand the saved image data back to your site. You can also make scripted use of a number of deviantART muro tools such as filters.
+
+Your users aren't required to have a deviantART or Sta.sh account, but if they have one or they sign-up within the application, there's a number of added benefits such as Sta.sh integration and deviantART muro redraw that happen automatically.
+
+Some useful starting points in the documentation:
+
+  http://github.com/deviantART/embedded-deviantART-muro/wiki/Home
+  http://github.com/deviantART/embedded-deviantART-muro/wiki/Getting_Started
+  http://github.com/deviantART/embedded-deviantART-muro/wiki/API_Reference
+
+Release status
+==============
+
+This code is currently considered pre-alpha and a work-in-progress intended for third-party developer early access and feedback. The API and example code are currently in a state of flux and subject to breakage without notice.
+
+We will update this status message and tag a release as and when this status changes.
+
+Licenses
+========
+
+Please check the LICENSES.txt file for full details on the licensing, the quick synopsis is that image assets are provided under a Creative Commons Attribution License and the code snippets are under a BSD 3-Clause License.
