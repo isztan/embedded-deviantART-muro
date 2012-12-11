@@ -10,7 +10,7 @@ Your users aren't required to have a deviantART or Sta.sh account, but if they h
 Some useful starting points in the documentation:
 
  * http://github.com/deviantART/embedded-deviantART-muro/wiki/Home
- * http://github.com/deviantART/embedded-deviantART-muro/wiki/Getting-Started
+ * http://github.com/deviantART/embedded-deviantART-muro/wiki/How-It-Works
  * https://github.com/deviantART/embedded-deviantART-muro/wiki/API-Reference
 
 Release status
