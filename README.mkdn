@@ -11,6 +11,7 @@ Some useful starting points in the documentation:
 
  * http://github.com/deviantART/embedded-deviantART-muro/wiki/Home
  * http://github.com/deviantART/embedded-deviantART-muro/wiki/How-It-Works
+ * http://github.com/deviantART/embedded-deviantART-muro/wiki/Embed-Options-Reference
  * https://github.com/deviantART/embedded-deviantART-muro/wiki/API-Reference
 
 Release status
