@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 { margin-bottom: 4px; }
 p { margin: 4px 0; }
 .muro-container, .muro, .muro-loading-inner { width: 1024px; height: 600px; border: 0; }
 .muro-container { overflow: auto; }
-.muro-loading { position: absolute; }
+.muro-loading { display: table; position: absolute; }
 .muro-loading-inner { display: table-cell; vertical-align: middle; text-align: center; }
 .muro { position: absolute; visibility: hidden; }
 .done { color: #cec; background-color: rgba(40, 40, 40, 0.8); }
@@ -19,7 +19,7 @@ p { margin: 4px 0; }
 <p>This reference implementation of embedded deviantART muro provides just the raw HTML and Javascript without making any assumptions about what toolkit or libraries you're using. This version demonstrates how to apply a series of filters to the image after import.</p>
 <div class="muro-container">
 <div class="muro-loading"><div class="muro-loading-inner">Loading deviantART muro...</div></div>
-<iframe class="muro" src="deviantart_muro_sandbox.html?backgroundURL=..%2Fimages%2Fcrane_squared_by_mudimba_and_draweverywhere.png"></iframe>
+<iframe class="muro" src="deviantart_muro_sandbox.html?background=..%2Fimages%2Fcrane_squared_by_mudimba_and_draweverywhere.png"></iframe>
 </div>
 </body>
 </html>
@@ -76,7 +76,7 @@ function receiveMessage(message) {
         /* Once you've got the image data, you could save it to your server
          * by passing it in an AJAX call, or do something stupid like this:
          */
-        if (!/'/.test(image)) {
+        if (!/\'/.test(image)) {
             var body = document.getElementsByTagName("body")[0];
             body.style.backgroundImage = "url('" + image + "')";
         }
@@ -93,7 +93,7 @@ function receiveMessage(message) {
 }
 window.addEventListener("message", receiveMessage, false);
 
-window.muroMessage = function (message) { muroIframe.contentWindow.postMessage(message, '*'); }
+window.muroMessage = function (message) { muroIframe.contentWindow.postMessage(message, '*'); };
 
 })(window);
 </script>
