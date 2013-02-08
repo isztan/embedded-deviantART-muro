@@ -12,13 +12,6 @@ Some useful starting points in the documentation:
  * http://github.com/deviantART/embedded-deviantART-muro/wiki/Embed-Options-Reference
  * https://github.com/deviantART/embedded-deviantART-muro/wiki/API-Reference
 
-Release status
-==============
-
-This code is currently considered pre-alpha and a work-in-progress intended for third-party developer early access and feedback. The API and example code are currently in a state of flux and subject to breakage without notice.
-
-We will update this status message and tag a release as and when this status changes.
-
 Licenses
 ========
 
