@@ -5,8 +5,6 @@ The purpose of this distribution is to provide examples and documentation of how
 
 Embedding deviantART muro in your site allows you to pass images from your site to deviantART muro, allow your users to edit those images, and then hand the saved image data back to your site. You can also make scripted use of a number of deviantART muro tools such as filters.
 
-Your users aren't required to have a deviantART or Sta.sh account, but if they have one or they sign-up within the application, there's a number of added benefits such as Sta.sh integration and deviantART muro redraw that happen automatically.
-
 Some useful starting points in the documentation:
 
  * http://github.com/deviantART/embedded-deviantART-muro/wiki/Home
